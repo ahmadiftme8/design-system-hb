@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -31,6 +31,9 @@
                         'card': '8px 8px 0 0 rgba(0,0,0,0.1)',
                         'card-hover': '12px 12px 0 0 rgba(169, 0, 78, 0.2)',
                         'float': '0 20px 40px -10px rgba(0,0,0,0.1)',
+                        'retro': '4px 4px 0 0 #000',
+                        'retro-hover': '6px 6px 0 0 #000',
+                        'game': '0 4px 0 0 rgba(0,0,0,0.2)',
                     },
                     animation: {
                         'float': 'float 4s ease-in-out infinite',
@@ -42,6 +45,9 @@
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-15px)' },
                         }
+                    },
+                    screens: {
+                        'mac': '1280px', // Targeting small laptops
                     }
                 }
             }
@@ -52,7 +58,7 @@
             font-family: 'Vazirmatn', sans-serif;
             background-color: #F2ECE2;
             color: #1a1a1a;
-            /* پترن نقطه‌ای به جای گرادینت */
+            /* Dot Pattern Background */
             background-image: radial-gradient(#d1d5db 1.5px, transparent 1.5px);
             background-size: 32px 32px;
         }
@@ -61,25 +67,29 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* خطوط اتصال شبکه */
-        .network-line {
-            position: absolute;
-            height: 2px;
-            background: #cbd5e1;
-            z-index: 0;
-            transform-origin: left center;
-        }
-
         .card-base {
             background: #FFFFFF;
             border: 2px solid #1a1a1a;
             border-radius: 1.5rem;
-            box-shadow: 8px 8px 0 0 #1a1a1a;
+            box-shadow: 4px 4px 0 0 #1a1a1a;
             transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .card-base:hover {
             transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 0 #A9004E;
+            border-color: #A9004E;
+        }
+
+        .card-premium {
+            background: #FFFFFF;
+            border: 2px solid #1a1a1a;
+            border-radius: 2rem;
+            box-shadow: 8px 8px 0 0 #1a1a1a;
+            transition: all 0.3s ease;
+        }
+        .card-premium:hover {
+            transform: translateY(-5px);
             box-shadow: 12px 12px 0 0 #A9004E;
         }
 
@@ -95,7 +105,22 @@
             box-shadow: 2px 2px 0 0 #1a1a1a;
         }
 
-        /* Flip Card Effect */
+        .snake-path {
+            stroke-dasharray: 20;
+            animation: dash 5s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -400; }
+        }
+
+        .stat-fill {
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+        .group:hover .stat-fill {
+            width: var(--percent);
+        }
+
         .flip-card {
             perspective: 1000px;
         }
@@ -132,8 +157,7 @@
             text-align: center;
             padding: 1rem;
         }
-
-        /* Mobile Frame Styling */
+        
         .mobile-frame {
             border: 12px solid #1f2937;
             border-radius: 2.5rem;
@@ -141,7 +165,6 @@
             position: relative;
             background: #F2ECE2;
             box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
-            /* Mobile background pattern */
             background-image: radial-gradient(#d1d5db 1px, transparent 1px);
             background-size: 20px 20px;
         }
@@ -163,21 +186,20 @@
 </head>
 <body class="min-h-screen overflow-x-hidden">
 
-    <!-- Navbar (Desktop) -->
+    <!-- Navbar -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-[#F2ECE2]/90 backdrop-blur-md border-b-2 border-black/5 py-2">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <!-- Logo Section -->
-             <div class="relative group cursor-pointer animate-float" style="transform: scale(0.4); transform-origin: left;">
+             <div class="relative group cursor-pointer animate-float">
                 <div class="absolute inset-0 bg-hambazi-primary blur-xl opacity-30 group-hover:opacity-60 transition-opacity rounded-full"></div>
-                <div class="w-16 h-16 bg-gradient-to-br from-hambazi-primary to-hambazi-primaryDark rounded-2xl rotate-6 shadow-[0_8px_0_0_rgba(128,0,59,0.3)] border-2 border-white/40 flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 relative z-10 overflow-hidden">
+                <div class="w-[60px] h-[60px] bg-gradient-to-br from-hambazi-primary to-hambazi-primaryDark rounded-2xl rotate-6 shadow-[0_6px_0_0_rgba(128,0,59,0.3)] border-2 border-white/40 flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 relative z-10 overflow-hidden">
                     <img src="logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-2xl p-1.5">
                 </div>
             </div>
 
             <div class="hidden md:flex items-center gap-8 font-game text-sm font-bold tracking-widest text-gray-600">
                 <a href="#" class="hover:text-hambazi-primary transition-colors">REALMS</a>
-                <a href="#" class="hover:text-hambazi-primary transition-colors">SKILLS</a>
-                <a href="#" class="hover:text-hambazi-primary transition-colors">NETWORK</a>
+                <a href="#" class="hover:text-hambazi-primary transition-colors">INVENTORY</a>
+                <a href="#" class="hover:text-hambazi-primary transition-colors">MASTERS</a>
             </div>
 
             <button class="btn-retro px-6 py-2 rounded-xl font-bold font-game tracking-wider hidden md:block">
@@ -186,371 +208,526 @@
         </div>
     </nav>
 
-    <!-- Main Container: Desktop & Mobile Comparison -->
-    <main class="max-w-[1400px] mx-auto pt-24 pb-20 px-4 flex flex-col xl:flex-row gap-16 items-start">
+    <!-- Content Wrapper -->
+    <div class="max-w-[1400px] mx-auto pt-[140px] pb-20 px-4">
+        
+        <!-- Top Section: Demo Split -->
+        <!-- Responsive Note: using 'xl' breakpoint for split, but adjusting width logic for smaller MacBooks -->
+        <div class="flex flex-col xl:flex-row gap-8 xl:gap-16 items-start mb-32">
 
-        <!-- =======================
-             LEFT SIDE: DESKTOP DEMO
-             ======================= -->
-        <div class="flex-1 w-full space-y-32">
-            
-            <!-- Hero Section -->
-            <section class="relative">
-                <!-- Background decorative lines -->
-                <svg class="absolute -z-10 top-0 right-0 w-96 h-96 opacity-20" viewBox="0 0 200 200">
-                    <path d="M10,10 L190,10 L190,190" fill="none" stroke="#A9004E" stroke-width="2" stroke-dasharray="10,10"/>
-                    <circle cx="190" cy="190" r="5" fill="#A9004E" />
-                </svg>
-
-                <div class="inline-block px-4 py-1 mb-6 border-2 border-black rounded-full bg-yellow-300 text-xs font-bold font-game tracking-widest uppercase shadow-[4px_4px_0_0_#000]">
-                    Season 2 is Live
-                </div>
+            <!-- LEFT SIDE: DESKTOP DEMO -->
+            <div class="flex-1 w-full space-y-32">
                 
-                <h1 class="text-7xl md:text-8xl font-black font-game text-[#1a1a1a] leading-[0.9] mb-8">
-                    FROM FUN<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-hambazi-primary to-purple-600">TO FOUNDERS</span>
-                </h1>
+                <!-- Hero -->
+                <section class="relative">
+                    <div class="inline-block px-4 py-1 mb-6 border-2 border-black rounded-full bg-yellow-300 text-xs font-bold font-game tracking-widest uppercase shadow-[4px_4px_0_0_#000]">
+                        Season 2 is Live
+                    </div>
+                    <h1 class="text-6xl md:text-8xl font-black font-game text-[#1a1a1a] leading-[0.9] mb-8">
+                        FROM FUN<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-hambazi-primary to-purple-600">TO FOUNDERS</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl text-gray-600 max-w-2xl leading-relaxed mb-10 pl-6 border-l-4 border-hambazi-primary">
+                        جایی که بوردگیم‌ها فقط بازی نیستند؛ شبیه‌سازهای بی‌رحمِ دنیای کسب‌وکارند. تیمت رو بساز، ریسک کن و استارتاپت رو از دل بازی بیرون بکش.
+                    </p>
+                    <div class="flex flex-wrap gap-6">
+                        <button class="btn-retro px-8 py-4 rounded-xl font-bold text-xl font-game">JOIN THE LEAGUE</button>
+                        <button class="px-8 py-4 rounded-xl font-bold text-gray-800 border-2 border-gray-300 hover:bg-white transition-colors flex items-center gap-2"><span>▶</span> Watch Trailer</button>
+                    </div>
+                </section>
+
+                <!-- Realms -->
+                <section>
+                    <div class="flex items-center gap-4 mb-12">
+                        <div class="w-4 h-4 bg-hambazi-primary rounded-full"></div>
+                        <div class="h-1 bg-gray-300 flex-1"></div>
+                        <h2 class="text-3xl md:text-4xl font-black font-game text-[#1a1a1a] whitespace-nowrap">CHOOSE YOUR REALM</h2>
+                        <div class="h-1 bg-gray-300 flex-1"></div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Startup Realm -->
+                        <div class="card-base p-6 relative group overflow-hidden">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-100 rounded-full z-0 group-hover:scale-150 transition-transform"></div>
+                            <div class="relative z-10">
+                                <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border-2 border-black">🚀</div>
+                                <h3 class="text-2xl font-bold font-game mb-2">STARTUP LEAGUE</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6">شبکه‌سازی حرفه‌ای، چالش‌های MVP و جذب سرمایه واقعی در قالب بازی.</p>
+                                <button class="w-full py-2 border-2 border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition-colors">ENTER REALM</button>
+                            </div>
+                        </div>
+                        <!-- English Realm -->
+                        <div class="card-base p-6 relative group overflow-hidden">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-yellow-100 rounded-full z-0 group-hover:scale-150 transition-transform"></div>
+                            <div class="relative z-10">
+                                <div class="w-16 h-16 bg-yellow-400 text-black rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border-2 border-black">💬</div>
+                                <h3 class="text-2xl font-bold font-game mb-2">ENGLISH CORNER</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6">بازی کن، انگلیسی حرف بزن و دایره لغات بیزینسیت رو منفجر کن.</p>
+                                <button class="w-full py-2 border-2 border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition-colors">ENTER REALM</button>
+                            </div>
+                        </div>
+                        <!-- D&D Realm -->
+                        <div class="card-base p-6 relative group overflow-hidden bg-[#1a1a1a] text-white border-gray-700">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-900/30 rounded-full z-0 group-hover:scale-150 transition-transform"></div>
+                            <div class="relative z-10">
+                                <div class="w-16 h-16 bg-red-600 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border-2 border-white">🐉</div>
+                                <h3 class="text-2xl font-bold font-game mb-2 text-white">DUNGEONS & DRAGONS</h3>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6">حل مسئله خلاقانه و استوری‌تلینگ در دنیای فانتزی.</p>
+                                <button class="w-full py-2 border-2 border-white rounded-lg font-bold text-xs hover:bg-white hover:text-black transition-colors">ENTER REALM</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 1. The Game Timeline (Level Map) -->
+                <section>
+                    <div class="flex items-center gap-4 mb-16">
+                        <h2 class="text-3xl md:text-4xl font-black font-game text-[#1a1a1a]">THE CAMPAIGN MAP</h2>
+                        <div class="h-1 bg-gray-300 flex-1"></div>
+                        <span class="px-3 py-1 bg-gray-200 rounded font-bold text-xs">54 HOURS</span>
+                    </div>
+
+                    <div class="relative min-h-[600px] hidden md:block">
+                        <!-- The Winding SVG Path -->
+                        <svg class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 0;">
+                            <path d="M 150 50 Q 150 200 450 250 T 750 450" 
+                                fill="none" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" class="snake-path"/>
+                            <path d="M 150 50 Q 150 200 450 250 T 750 450" 
+                                fill="none" stroke="#A9004E" stroke-width="2" stroke-dasharray="10 10"/>
+                        </svg>
+
+                        <!-- Level 1 -->
+                        <div class="absolute left-[5%] xl:left-[100px] top-0 group cursor-pointer">
+                            <div class="w-20 h-20 bg-green-500 rounded-2xl border-4 border-[#F2ECE2] shadow-[0_10px_20px_rgba(34,197,94,0.4)] flex items-center justify-center text-3xl text-white relative z-10 group-hover:scale-110 transition-transform">🏁</div>
+                            <div class="absolute top-24 left-1/2 -translate-x-1/2 w-48 bg-white p-4 rounded-xl shadow-card border-2 border-black text-center z-20">
+                                <h4 class="font-bold font-game">LEVEL 1: START</h4>
+                                <p class="text-xs text-gray-500 mt-1">آشنایی و انتخاب نقش</p>
+                            </div>
+                        </div>
+
+                        <!-- Level 2 -->
+                        <div class="absolute left-[40%] xl:left-[400px] top-[200px] group cursor-pointer">
+                            <div class="w-24 h-24 bg-hambazi-primary rounded-full border-4 border-[#F2ECE2] shadow-[0_10px_30px_rgba(169,0,78,0.5)] flex items-center justify-center text-4xl text-white relative z-10 animate-pulse-slow">⚔️</div>
+                            <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-56 bg-hambazi-primary text-white p-4 rounded-xl shadow-card border-2 border-black text-center z-20 transform scale-0 group-hover:scale-100 transition-transform origin-bottom">
+                                <h4 class="font-bold font-game text-xl">TEAM UP!</h4>
+                                <p class="text-xs mt-2 opacity-90">پیدا کردن هم‌تیمی‌ها در طول بازی‌های تعاملی و چالش‌ها.</p>
+                                <div class="mt-2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-hambazi-primary absolute -bottom-2 left-1/2 -translate-x-1/2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Level 3 -->
+                        <div class="absolute left-[75%] xl:left-[700px] top-[400px] group cursor-pointer">
+                            <div class="w-20 h-20 bg-purple-600 rounded-2xl border-4 border-[#F2ECE2] shadow-[0_10px_20px_rgba(147,51,234,0.4)] flex items-center justify-center text-3xl text-white relative z-10 group-hover:scale-110 transition-transform">🏆</div>
+                            <div class="absolute top-24 left-1/2 -translate-x-1/2 w-48 bg-white p-4 rounded-xl shadow-card border-2 border-black text-center z-20">
+                                <h4 class="font-bold font-game">LEVEL 3: PITCH</h4>
+                                <p class="text-xs text-gray-500 mt-1">ارائه نهایی به سرمایه‌گذار</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Inventory & Assets -->
+                <section>
+                    <div class="flex flex-col items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black font-game text-[#1a1a1a] mb-2">YOUR INVENTORY</h2>
+                        <p class="text-gray-500 font-bold">تجهیزاتی که در طول بازی به دست می‌آورید</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <!-- Character Card -->
+                        <div class="card-premium p-2 relative group cursor-pointer">
+                            <div class="absolute -top-4 -right-4 bg-yellow-400 text-black text-xs font-black px-4 py-1.5 rounded-lg shadow-retro border-2 border-black rotate-6 z-20">LVL 5</div>
+                            <div class="bg-gradient-to-b from-white to-gray-50 rounded-[1.8rem] p-8 h-full relative overflow-hidden">
+                                <div class="mb-6">
+                                    <div class="flex justify-between text-[10px] font-bold text-gray-400 mb-1 uppercase tracking-wider font-game">
+                                        <span>Experience</span>
+                                        <span>2450 / 3000 XP</span>
+                                    </div>
+                                    <div class="h-3 bg-gray-200 rounded-full border border-black overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 w-[82%]"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-6 mb-6">
+                                    <div class="w-20 h-20 rounded-2xl bg-blue-100 flex items-center justify-center text-4xl shadow-inner border-2 border-black">👨‍💻</div>
+                                    <div>
+                                        <h3 class="text-2xl font-black text-gray-900 mb-1">Senior Dev</h3>
+                                        <div class="flex gap-2">
+                                            <span class="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-bold rounded border border-black">React</span>
+                                            <span class="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-bold rounded border border-black">Node</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-8">
+                                    این کارت به شما اجازه میده تا در فاز فنی، ۲ بار از راهنمایی منتورها استفاده کنید و کد رو ریویو کنید.
+                                </p>
+                                <button class="w-full py-4 rounded-xl bg-[#1a1a1a] text-white font-bold font-game shadow-retro hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+                                    EQUIP CARD
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quest Card -->
+                        <div class="card-premium p-2 relative group cursor-pointer">
+                            <div class="bg-white rounded-[1.8rem] p-8 h-full relative overflow-hidden flex flex-col">
+                                <div class="absolute top-0 right-0 w-full h-40 bg-gradient-to-b from-red-50 to-transparent opacity-50"></div>
+                                <div class="flex justify-between items-start mb-6 relative z-10">
+                                    <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center text-red-500 shadow-inner border-2 border-black">📜</div>
+                                    <div class="flex items-center gap-2 bg-yellow-100 px-3 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0_0_rgba(0,0,0,0.1)]">
+                                        <span class="text-yellow-700 font-black text-lg">500</span>
+                                        <span class="text-[10px] text-yellow-700 font-bold font-game">COIN</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl font-black text-gray-900 mb-3 relative z-10">Quest: Ceasefire</h3>
+                                <p class="text-gray-600 text-sm mb-8 relative z-10 leading-relaxed">
+                                    یک مذاکره موفق با تیم رقیب داشته باشید بدون اینکه منابع کلیدی (Developer) رو از دست بدید.
+                                </p>
+                                <div class="mt-auto border-t-2 border-gray-100 pt-6 flex justify-between items-center relative z-10">
+                                    <span class="text-xs font-bold text-red-500 font-game flex items-center gap-2">
+                                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                                        20 MIN LEFT
+                                    </span>
+                                    <button class="px-6 py-2 bg-white border-2 border-hambazi-primary text-hambazi-primary rounded-xl text-sm font-bold hover:bg-hambazi-primary hover:text-white transition-colors">START</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Skills Deck -->
+                <section>
+                    <div class="flex flex-col items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black font-game text-[#1a1a1a] mb-2">UNLOCK YOUR SKILLS</h2>
+                        <p class="text-gray-500 font-bold">برای دیدن توضیحات، کارت‌ها رو برگردونید</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <!-- Card 1 -->
+                        <div class="flip-card h-64">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
+                                    <div class="text-5xl mb-4">🤝</div>
+                                    <h4 class="font-bold text-xl">Negotiation</h4>
+                                    <div class="mt-4 w-12 h-1 bg-green-500 rounded-full"></div>
+                                </div>
+                                <div class="flip-card-back shadow-card border-green-500">
+                                    <h4 class="font-bold text-lg mb-2 text-green-400">مذاکره</h4>
+                                    <p class="text-xs leading-relaxed">یاد بگیر چطور سر منابع محدود معامله کنی بدون اینکه بازنده باشی.</p>
+                                    <div class="mt-4 px-3 py-1 bg-green-900 rounded border border-green-700 text-xs text-green-300 font-mono">XP +50</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="flip-card h-64">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
+                                    <div class="text-5xl mb-4">♟️</div>
+                                    <h4 class="font-bold text-xl">Strategy</h4>
+                                    <div class="mt-4 w-12 h-1 bg-blue-500 rounded-full"></div>
+                                </div>
+                                <div class="flip-card-back shadow-card border-blue-500">
+                                    <h4 class="font-bold text-lg mb-2 text-blue-400">استراتژی</h4>
+                                    <p class="text-xs leading-relaxed">تحلیل رقبا و چیدن نقشه برای برنده شدن در بازار.</p>
+                                    <div class="mt-4 px-3 py-1 bg-blue-900 rounded border border-blue-700 text-xs text-blue-300 font-mono">XP +75</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="flip-card h-64">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
+                                    <div class="text-5xl mb-4">🎲</div>
+                                    <h4 class="font-bold text-xl">Risk Taking</h4>
+                                    <div class="mt-4 w-12 h-1 bg-red-500 rounded-full"></div>
+                                </div>
+                                <div class="flip-card-back shadow-card border-red-500">
+                                    <h4 class="font-bold text-lg mb-2 text-red-400">ریسک‌پذیری</h4>
+                                    <p class="text-xs leading-relaxed">مدیریت بحران و تصمیم‌گیری در شرایط عدم قطعیت.</p>
+                                    <div class="mt-4 px-3 py-1 bg-red-900 rounded border border-red-700 text-xs text-red-300 font-mono">XP +60</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="flip-card h-64">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
+                                    <div class="text-5xl mb-4">👑</div>
+                                    <h4 class="font-bold text-xl">Leadership</h4>
+                                    <div class="mt-4 w-12 h-1 bg-yellow-500 rounded-full"></div>
+                                </div>
+                                <div class="flip-card-back shadow-card border-yellow-500">
+                                    <h4 class="font-bold text-lg mb-2 text-yellow-400">رهبری</h4>
+                                    <p class="text-xs leading-relaxed">هدایت تیم به سمت هدف وقتی همه چیز به هم ریخته.</p>
+                                    <div class="mt-4 px-3 py-1 bg-yellow-900 rounded border border-yellow-700 text-xs text-yellow-300 font-mono">XP +100</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Masters -->
+                <section>
+                    <div class="flex flex-col items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black font-game text-[#1a1a1a] mb-2">MEET THE MASTERS</h2>
+                        <p class="text-gray-500 font-bold">قهرمانانی که مسیر را به شما نشان می‌دهند</p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Master 1 -->
+                        <div class="card-base p-4 group hover:-translate-y-4 transition-transform duration-300">
+                            <div class="bg-gray-200 h-48 rounded-xl mb-4 relative overflow-hidden border-2 border-black">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Robert&clothing=blazerAndShirt" alt="Mentor" class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-2 text-center font-game font-bold text-sm">LVL 99 STRATEGIST</div>
+                            </div>
+                            <h3 class="font-bold text-xl text-center mb-1">Dr. Arash</h3>
+                            <p class="text-xs text-center text-gray-500 font-bold mb-4 uppercase tracking-widest">Startup Veteran</p>
+                            <div class="space-y-3 px-2">
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-bold mb-1"><span>STRATEGY</span><span>95%</span></div>
+                                    <div class="h-2 bg-gray-200 rounded-full border border-black overflow-hidden"><div class="h-full bg-blue-500 stat-fill" style="--percent: 95%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-bold mb-1"><span>CHARISMA</span><span>80%</span></div>
+                                    <div class="h-2 bg-gray-200 rounded-full border border-black overflow-hidden"><div class="h-full bg-yellow-500 stat-fill" style="--percent: 80%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Master 2 -->
+                        <div class="card-base p-4 group hover:-translate-y-4 transition-transform duration-300">
+                            <div class="bg-gray-200 h-48 rounded-xl mb-4 relative overflow-hidden border-2 border-black">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sara&clothing=graphicShirt" alt="Mentor" class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-2 text-center font-game font-bold text-sm">LVL 85 HACKER</div>
+                            </div>
+                            <h3 class="font-bold text-xl text-center mb-1">Sara Tech</h3>
+                            <p class="text-xs text-center text-gray-500 font-bold mb-4 uppercase tracking-widest">Tech Lead</p>
+                            <div class="space-y-3 px-2">
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-bold mb-1"><span>CODING</span><span>98%</span></div>
+                                    <div class="h-2 bg-gray-200 rounded-full border border-black overflow-hidden"><div class="h-full bg-green-500 stat-fill" style="--percent: 98%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-bold mb-1"><span>TEAMWORK</span><span>70%</span></div>
+                                    <div class="h-2 bg-gray-200 rounded-full border border-black overflow-hidden"><div class="h-full bg-purple-500 stat-fill" style="--percent: 70%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Master 3 -->
+                        <div class="card-base p-4 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black/5 z-10 flex flex-col items-center justify-center backdrop-blur-[2px]">
+                                <div class="text-4xl mb-2">🔒</div>
+                                <span class="font-bold font-game bg-black text-white px-3 py-1 rounded">MYSTERY GUEST</span>
+                            </div>
+                            <div class="bg-gray-200 h-48 rounded-xl mb-4 border-2 border-black flex items-center justify-center text-4xl grayscale opacity-50">👤</div>
+                            <div class="space-y-3 px-2 opacity-30">
+                                <div class="h-4 bg-gray-300 rounded w-1/2 mx-auto"></div>
+                                <div class="h-2 bg-gray-300 rounded w-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. Networking -->
+                <section class="relative py-12">
+                    <div class="absolute inset-0 border-2 border-dashed border-gray-300 rounded-3xl -z-10"></div>
+                    <h2 class="text-3xl md:text-4xl font-black font-game text-[#1a1a1a] mb-12 text-center bg-[#F2ECE2] inline-block px-4 mx-auto w-full">BUILD YOUR NETWORK</h2>
+
+                    <div class="relative h-[400px] flex items-center justify-center">
+                        <svg class="absolute inset-0 w-full h-full" style="z-index: 0;">
+                            <line x1="20%" y1="30%" x2="50%" y2="50%" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
+                            <line x1="80%" y1="30%" x2="50%" y2="50%" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
+                            <line x1="50%" y1="80%" x2="50%" y2="50%" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
+                        </svg>
+                        <div class="absolute top-1/2 left-[20%] right-[50%] h-[2px] bg-gray-300 hidden md:flex items-center justify-center -z-10 transform -rotate-12 origin-right">
+                            <div class="absolute -top-6 px-2 py-1 bg-white rounded border border-black text-[10px] font-bold font-mono">MATCH 95%</div>
+                        </div>
+                        <!-- Center Node -->
+                        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
+                            <div class="w-24 h-24 bg-hambazi-primary rounded-full border-4 border-white shadow-float flex items-center justify-center text-white text-4xl animate-pulse-slow">🙌</div>
+                            <span class="mt-2 font-bold font-game bg-white px-2 rounded border border-gray-200">YOU</span>
+                        </div>
+                        <!-- Nodes -->
+                        <div class="absolute left-[15%] top-[25%] z-10 flex flex-col items-center cursor-pointer hover:scale-110 transition-transform group">
+                            <div class="w-20 h-20 bg-white rounded-2xl border-2 border-black shadow-card flex items-center justify-center text-3xl group-hover:bg-green-50">👨‍💻</div>
+                            <div class="mt-2 bg-white border border-black px-2 py-1 rounded text-center"><span class="block text-xs font-bold">Ali (Hacker)</span><span class="text-[9px] text-green-600 font-bold">Lvl 5</span></div>
+                        </div>
+                        <div class="absolute right-[15%] top-[25%] z-10 flex flex-col items-center cursor-pointer hover:scale-110 transition-transform group">
+                            <div class="w-20 h-20 bg-white rounded-2xl border-2 border-black shadow-card flex items-center justify-center text-3xl group-hover:bg-blue-50">💼</div>
+                            <div class="mt-2 bg-white border border-black px-2 py-1 rounded text-center"><span class="block text-xs font-bold">Reza (Biz)</span><span class="text-[9px] text-blue-600 font-bold">Lvl 3</span></div>
+                        </div>
+                        <div class="absolute left-1/2 bottom-[15%] -translate-x-1/2 z-10 flex flex-col items-center cursor-pointer hover:scale-110 transition-transform group">
+                            <div class="w-20 h-20 bg-white rounded-2xl border-2 border-black shadow-card flex items-center justify-center text-3xl group-hover:bg-purple-50">🎨</div>
+                            <div class="mt-2 bg-white border border-black px-2 py-1 rounded text-center"><span class="block text-xs font-bold">Sara (Art)</span><span class="text-[9px] text-purple-600 font-bold">Lvl 4</span></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT SIDE: MOBILE DEMO -->
+            <div class="shrink-0 flex flex-col items-center sticky top-24 xl:top-32 h-fit">
+                <h3 class="font-game font-bold text-xl mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Mobile First Experience
+                </h3>
                 
-                <p class="text-xl md:text-2xl text-gray-600 max-w-2xl leading-relaxed mb-10 pl-6 border-l-4 border-hambazi-primary">
-                    جایی که بوردگیم‌ها فقط بازی نیستند؛ شبیه‌سازهای بی‌رحمِ دنیای کسب‌وکارند. تیمت رو بساز، ریسک کن و استارتاپت رو از دل بازی بیرون بکش.
-                </p>
-
-                <div class="flex gap-6">
-                    <button class="btn-retro px-8 py-4 rounded-xl font-bold text-xl font-game">
-                        JOIN THE LEAGUE
-                    </button>
-                    <button class="px-8 py-4 rounded-xl font-bold text-gray-800 border-2 border-gray-300 hover:bg-white transition-colors flex items-center gap-2">
-                        <span>▶</span> Watch Trailer
-                    </button>
-                </div>
-            </section>
-
-            <!-- Realms (Business Lines) -->
-            <section>
-                <div class="flex items-center gap-4 mb-12">
-                    <div class="w-4 h-4 bg-hambazi-primary rounded-full"></div>
-                    <div class="h-1 bg-gray-300 flex-1"></div>
-                    <h2 class="text-4xl font-black font-game text-[#1a1a1a] whitespace-nowrap">CHOOSE YOUR REALM</h2>
-                    <div class="h-1 bg-gray-300 flex-1"></div>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Startup Realm -->
-                    <div class="card-base p-6 relative group overflow-hidden">
-                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-100 rounded-full z-0 group-hover:scale-150 transition-transform"></div>
-                        <div class="relative z-10">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border-2 border-black">🚀</div>
-                            <h3 class="text-2xl font-bold font-game mb-2">STARTUP LEAGUE</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-6">شبکه‌سازی حرفه‌ای، چالش‌های MVP و جذب سرمایه واقعی در قالب بازی.</p>
-                            <div class="flex gap-2 text-xs font-bold text-blue-700">
-                                <span class="bg-blue-100 px-2 py-1 rounded border border-blue-200">#Pitch</span>
-                                <span class="bg-blue-100 px-2 py-1 rounded border border-blue-200">#Team</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- English Realm -->
-                    <div class="card-base p-6 relative group overflow-hidden">
-                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-yellow-100 rounded-full z-0 group-hover:scale-150 transition-transform"></div>
-                        <div class="relative z-10">
-                            <div class="w-16 h-16 bg-yellow-400 text-black rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border-2 border-black">💬</div>
-                            <h3 class="text-2xl font-bold font-game mb-2">ENGLISH CORNER</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-6">بازی کن، انگلیسی حرف بزن و دایره لغات بیزینسیت رو منفجر کن.</p>
-                            <div class="flex gap-2 text-xs font-bold text-yellow-800">
-                                <span class="bg-yellow-100 px-2 py-1 rounded border border-yellow-200">#Speak</span>
-                                <span class="bg-yellow-100 px-2 py-1 rounded border border-yellow-200">#Play</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- D&D Realm -->
-                    <div class="card-base p-6 relative group overflow-hidden bg-[#1a1a1a] text-white border-gray-700">
-                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-900/30 rounded-full z-0 group-hover:scale-150 transition-transform"></div>
-                        <div class="relative z-10">
-                            <div class="w-16 h-16 bg-red-600 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border-2 border-white">🐉</div>
-                            <h3 class="text-2xl font-bold font-game mb-2 text-white">DUNGEONS & DRAGONS</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6">حل مسئله خلاقانه و استوری‌تلینگ در دنیای فانتزی و اژدهایان.</p>
-                            <div class="flex gap-2 text-xs font-bold text-red-300">
-                                <span class="bg-red-900/50 px-2 py-1 rounded border border-red-800">#Story</span>
-                                <span class="bg-red-900/50 px-2 py-1 rounded border border-red-800">#Creative</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Skill Deck (Flip Cards) -->
-            <section>
-                <div class="flex flex-col items-center mb-12">
-                    <h2 class="text-4xl font-black font-game text-[#1a1a1a] mb-2">UNLOCK YOUR SKILLS</h2>
-                    <p class="text-gray-500 font-bold">برای دیدن توضیحات، کارت‌ها رو برگردونید</p>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <!-- Negotiation -->
-                    <div class="flip-card h-64">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
-                                <div class="text-5xl mb-4">🤝</div>
-                                <h4 class="font-bold text-xl">Negotiation</h4>
-                                <div class="mt-4 w-12 h-1 bg-green-500 rounded-full"></div>
-                            </div>
-                            <div class="flip-card-back shadow-card border-green-500">
-                                <h4 class="font-bold text-lg mb-2 text-green-400">مذاکره</h4>
-                                <p class="text-xs leading-relaxed">یاد بگیر چطور سر منابع محدود معامله کنی بدون اینکه بازنده باشی.</p>
-                                <div class="mt-4 px-3 py-1 bg-green-900 rounded border border-green-700 text-xs text-green-300 font-mono">
-                                    XP +50
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Strategy -->
-                    <div class="flip-card h-64">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
-                                <div class="text-5xl mb-4">♟️</div>
-                                <h4 class="font-bold text-xl">Strategy</h4>
-                                <div class="mt-4 w-12 h-1 bg-blue-500 rounded-full"></div>
-                            </div>
-                            <div class="flip-card-back shadow-card border-blue-500">
-                                <h4 class="font-bold text-lg mb-2 text-blue-400">استراتژی</h4>
-                                <p class="text-xs leading-relaxed">تحلیل رقبا و چیدن نقشه برای برنده شدن در بازار.</p>
-                                <div class="mt-4 px-3 py-1 bg-blue-900 rounded border border-blue-700 text-xs text-blue-300 font-mono">
-                                    XP +75
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                     <!-- Risk Taking -->
-                     <div class="flip-card h-64">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
-                                <div class="text-5xl mb-4">🎲</div>
-                                <h4 class="font-bold text-xl">Risk Taking</h4>
-                                <div class="mt-4 w-12 h-1 bg-red-500 rounded-full"></div>
-                            </div>
-                            <div class="flip-card-back shadow-card border-red-500">
-                                <h4 class="font-bold text-lg mb-2 text-red-400">ریسک‌پذیری</h4>
-                                <p class="text-xs leading-relaxed">مدیریت بحران و تصمیم‌گیری در شرایط عدم قطعیت.</p>
-                                <div class="mt-4 px-3 py-1 bg-red-900 rounded border border-red-700 text-xs text-red-300 font-mono">
-                                    XP +60
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Leadership -->
-                     <div class="flip-card h-64">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front flex flex-col items-center justify-center shadow-card">
-                                <div class="text-5xl mb-4">👑</div>
-                                <h4 class="font-bold text-xl">Leadership</h4>
-                                <div class="mt-4 w-12 h-1 bg-yellow-500 rounded-full"></div>
-                            </div>
-                            <div class="flip-card-back shadow-card border-yellow-500">
-                                <h4 class="font-bold text-lg mb-2 text-yellow-400">رهبری</h4>
-                                <p class="text-xs leading-relaxed">هدایت تیم به سمت هدف وقتی همه چیز به هم ریخته.</p>
-                                <div class="mt-4 px-3 py-1 bg-yellow-900 rounded border border-yellow-700 text-xs text-yellow-300 font-mono">
-                                    XP +100
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Networking (Interactive Visual) -->
-            <section class="relative py-12">
-                <div class="absolute inset-0 border-2 border-dashed border-gray-300 rounded-3xl -z-10"></div>
-                <h2 class="text-4xl font-black font-game text-[#1a1a1a] mb-12 text-center bg-[#F2ECE2] inline-block px-4 mx-auto w-full">BUILD YOUR NETWORK</h2>
-
-                <div class="relative h-[400px] flex items-center justify-center">
-                    <!-- Network Lines (SVG) -->
-                    <svg class="absolute inset-0 w-full h-full" style="z-index: 0;">
-                        <line x1="20%" y1="30%" x2="50%" y2="50%" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
-                        <line x1="80%" y1="30%" x2="50%" y2="50%" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
-                        <line x1="50%" y1="80%" x2="50%" y2="50%" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5" />
-                    </svg>
-
-                    <!-- Center Node -->
-                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
-                        <div class="w-24 h-24 bg-hambazi-primary rounded-full border-4 border-white shadow-float flex items-center justify-center text-white text-4xl animate-pulse-slow">
-                            🙌
-                        </div>
-                        <span class="mt-2 font-bold font-game bg-white px-2 rounded border border-gray-200">YOU</span>
-                    </div>
-
-                    <!-- Node 1 -->
-                    <div class="absolute left-[15%] top-[25%] z-10 flex flex-col items-center cursor-pointer hover:scale-110 transition-transform">
-                        <div class="w-16 h-16 bg-white rounded-2xl border-2 border-black shadow-card flex items-center justify-center text-2xl">
-                            👨‍💻
-                        </div>
-                        <span class="mt-2 text-xs font-bold bg-gray-100 px-2 rounded">CTO Found!</span>
-                    </div>
-
-                    <!-- Node 2 -->
-                    <div class="absolute right-[15%] top-[25%] z-10 flex flex-col items-center cursor-pointer hover:scale-110 transition-transform">
-                        <div class="w-16 h-16 bg-white rounded-2xl border-2 border-black shadow-card flex items-center justify-center text-2xl">
-                            💼
-                        </div>
-                        <span class="mt-2 text-xs font-bold bg-gray-100 px-2 rounded">Investor</span>
-                    </div>
-
-                    <!-- Node 3 -->
-                    <div class="absolute left-1/2 bottom-[15%] -translate-x-1/2 z-10 flex flex-col items-center cursor-pointer hover:scale-110 transition-transform">
-                        <div class="w-16 h-16 bg-white rounded-2xl border-2 border-black shadow-card flex items-center justify-center text-2xl">
-                            🎨
-                        </div>
-                        <span class="mt-2 text-xs font-bold bg-gray-100 px-2 rounded">Designer</span>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-        <!-- =======================
-             RIGHT SIDE: MOBILE DEMO
-             ======================= -->
-        <div class="shrink-0 flex flex-col items-center sticky top-24">
-            <h3 class="font-game font-bold text-xl mb-6 flex items-center gap-2">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                Mobile First Experience
-            </h3>
-            
-            <div class="mobile-frame w-[360px] h-[720px] shadow-2xl">
-                <div class="mobile-notch"></div>
-                
-                <!-- Mobile Status Bar -->
-                <div class="absolute top-0 w-full h-8 z-50 flex justify-between px-6 pt-1 text-[10px] font-bold text-white/50">
-                    <span>9:41</span>
-                    <span>5G</span>
-                </div>
-
-                <!-- Mobile Scroll Content -->
-                <div class="h-full overflow-y-auto no-scrollbar relative bg-[#F2ECE2] pt-12 pb-24">
+                <div class="mobile-frame w-[320px] lg:w-[360px] h-[640px] lg:h-[720px] shadow-2xl">
+                    <div class="mobile-notch"></div>
+                    <div class="absolute top-0 w-full h-8 z-50 flex justify-between px-6 pt-1 text-[10px] font-bold text-white/50"><span>9:41</span><span>5G</span></div>
                     
-                    <!-- Mobile Header -->
-                    <div class="px-5 mb-8 flex justify-between items-center">
-                        <!-- User provided Logo Code scaled down -->
-                        <div class="relative group cursor-pointer animate-float" style="transform: scale(0.35); transform-origin: left;">
-                            <div class="absolute inset-0 bg-hambazi-primary blur-xl opacity-30 group-hover:opacity-60 transition-opacity rounded-full"></div>
-                            <div class="w-16 h-16 bg-gradient-to-br from-hambazi-primary to-hambazi-primaryDark rounded-2xl rotate-6 shadow-[0_8px_0_0_rgba(128,0,59,0.3)] border-2 border-white/40 flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 relative z-10 overflow-hidden">
-                                <img src="logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-2xl p-1.5">
-                            </div>
-                        </div>
-                        
-                        <div class="flex gap-2">
-                             <div class="w-10 h-10 bg-white rounded-xl border-2 border-black shadow-[2px_2px_0_0_#000] flex items-center justify-center">
-                                🔔
-                            </div>
-                             <div class="w-10 h-10 bg-white rounded-xl border-2 border-black shadow-[2px_2px_0_0_#000] flex items-center justify-center overflow-hidden">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Hero -->
-                    <div class="px-5 mb-8">
-                        <h1 class="text-4xl font-black font-game leading-none mb-4 text-[#1a1a1a]">
-                            FROM FUN<br>TO <span class="text-hambazi-primary">FOUNDERS</span>
-                        </h1>
-                        <!-- Event Card -->
-                        <div class="bg-black text-white rounded-2xl p-5 shadow-[4px_4px_0_0_#A9004E] relative overflow-hidden">
-                            <div class="absolute right-0 top-0 w-24 h-24 bg-gray-800 rounded-full -mr-8 -mt-8 opacity-50"></div>
-                            <span class="text-[10px] font-bold bg-hambazi-primary px-2 py-0.5 rounded text-white mb-2 inline-block">UPCOMING</span>
-                            <h3 class="text-xl font-bold font-game mb-1">Startup Weekend</h3>
-                            <p class="text-xs text-gray-400 mb-4">Tehran, Azadi Innovation Factory</p>
-                            <button class="w-full bg-white text-black py-2 rounded-lg font-bold text-xs hover:bg-gray-200">Book Seat</button>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Realms (Horizontal Scroll) -->
-                    <div class="mb-8 pl-5">
-                        <h3 class="font-bold font-game text-sm mb-3 opacity-60">SELECT REALM</h3>
-                        <div class="flex gap-4 overflow-x-auto no-scrollbar pr-5 pb-4">
-                            <!-- Card 1 -->
-                            <div class="min-w-[140px] h-40 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0_0_#000] p-4 flex flex-col justify-between">
-                                <span class="text-2xl">🚀</span>
-                                <div>
-                                    <h4 class="font-bold font-game text-sm">STARTUP</h4>
-                                    <p class="text-[10px] text-gray-500">Launch it.</p>
+                    <div class="h-full overflow-y-auto no-scrollbar relative bg-[#F2ECE2] pt-12 pb-24">
+                        <!-- Mobile Header -->
+                        <div class="px-5 mb-8 flex justify-between items-center">
+                            <div class="relative group cursor-pointer animate-float">
+                                <div class="absolute inset-0 bg-hambazi-primary blur-xl opacity-30 group-hover:opacity-60 transition-opacity rounded-full"></div>
+                                <div class="w-[60px] h-[60px] bg-gradient-to-br from-hambazi-primary to-hambazi-primaryDark rounded-2xl rotate-6 shadow-[0_6px_0_0_rgba(128,0,59,0.3)] border-2 border-white/40 flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 relative z-10 overflow-hidden">
+                                    <img src="logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-2xl p-1.5">
                                 </div>
                             </div>
-                            <!-- Card 2 -->
-                            <div class="min-w-[140px] h-40 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0_0_#000] p-4 flex flex-col justify-between">
-                                <span class="text-2xl">💬</span>
-                                <div>
-                                    <h4 class="font-bold font-game text-sm">ENGLISH</h4>
-                                    <p class="text-[10px] text-gray-500">Speak it.</p>
-                                </div>
-                            </div>
-                             <!-- Card 3 -->
-                            <div class="min-w-[140px] h-40 bg-[#1a1a1a] text-white border-2 border-gray-600 rounded-2xl shadow-[4px_4px_0_0_#000] p-4 flex flex-col justify-between">
-                                <span class="text-2xl">🐉</span>
-                                <div>
-                                    <h4 class="font-bold font-game text-sm">D&D</h4>
-                                    <p class="text-[10px] text-gray-400">Play it.</p>
-                                </div>
+                            <div class="flex gap-2">
+                                <div class="w-10 h-10 bg-white rounded-xl border-2 border-black shadow-[2px_2px_0_0_#000] flex items-center justify-center">🔔</div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Mobile Networking (Vertical Stack) -->
-                    <div class="px-5 mb-8">
-                         <h3 class="font-bold font-game text-sm mb-3 opacity-60">YOUR SQUAD</h3>
-                         <div class="space-y-3">
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
-                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-lg">👩‍💻</div>
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-sm">Sarah (Dev)</h4>
-                                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-1">
-                                        <div class="bg-green-500 w-[80%] h-full rounded-full"></div>
+                        <!-- Mobile Content -->
+                        <div class="px-5 mb-8">
+                            <h1 class="text-4xl font-black font-game leading-none mb-4 text-[#1a1a1a]">FROM FUN<br>TO <span class="text-hambazi-primary">FOUNDERS</span></h1>
+                            <div class="bg-white rounded-2xl p-4 border-2 border-black shadow-retro mt-6">
+                                <h3 class="font-bold font-game text-sm mb-4">EVENT TIMELINE</h3>
+                                <div class="relative border-l-2 border-dashed border-gray-300 ml-3 space-y-6">
+                                    <div class="relative pl-6">
+                                        <div class="absolute -left-[9px] top-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+                                        <h4 class="text-xs font-bold">START (Fri 18:00)</h4>
+                                        <p class="text-[10px] text-gray-500">Team Formation</p>
+                                    </div>
+                                    <div class="relative pl-6">
+                                        <div class="absolute -left-[9px] top-0 w-4 h-4 bg-gray-300 rounded-full border-2 border-white"></div>
+                                        <h4 class="text-xs font-bold text-gray-400">BUILD (Sat 09:00)</h4>
+                                        <p class="text-[10px] text-gray-400">MVP Development</p>
+                                    </div>
+                                    <div class="relative pl-6">
+                                        <div class="absolute -left-[9px] top-0 w-4 h-4 bg-gray-300 rounded-full border-2 border-white"></div>
+                                        <h4 class="text-xs font-bold text-gray-400">PITCH (Sun 17:00)</h4>
+                                        <p class="text-[10px] text-gray-400">Final Presentation</p>
                                     </div>
                                 </div>
-                                <button class="text-xs font-bold text-hambazi-primary bg-pink-50 px-2 py-1 rounded">CHAT</button>
                             </div>
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
-                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-lg">👨‍💼</div>
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-sm">Reza (Biz)</h4>
-                                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-1">
-                                        <div class="bg-blue-500 w-[40%] h-full rounded-full"></div>
+                        </div>
+
+                        <!-- Mobile Masters -->
+                        <div class="mb-8 pl-5">
+                            <h3 class="font-bold font-game text-sm mb-3 opacity-60">GAME MASTERS</h3>
+                            <div class="flex gap-4 overflow-x-auto no-scrollbar pr-5 pb-4">
+                                <div class="min-w-[160px] bg-white border-2 border-black rounded-2xl shadow-retro p-3">
+                                    <div class="w-full h-24 bg-gray-200 rounded-lg mb-2 overflow-hidden border border-black"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Robert" class="w-full h-full object-cover"></div>
+                                    <h4 class="font-bold text-sm text-center">Dr. Arash</h4>
+                                    <div class="mt-2 text-[8px] font-bold space-y-1">
+                                        <div class="flex justify-between"><span>STR</span><div class="w-12 h-1 bg-gray-200"><div class="w-[90%] h-full bg-blue-500"></div></div></div>
+                                        <div class="flex justify-between"><span>INT</span><div class="w-12 h-1 bg-gray-200"><div class="w-[80%] h-full bg-green-500"></div></div></div>
                                     </div>
                                 </div>
-                                <button class="text-xs font-bold text-hambazi-primary bg-pink-50 px-2 py-1 rounded">CHAT</button>
+                                <div class="min-w-[160px] bg-white border-2 border-black rounded-2xl shadow-retro p-3">
+                                    <div class="w-full h-24 bg-gray-200 rounded-lg mb-2 overflow-hidden border border-black"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sara" class="w-full h-full object-cover"></div>
+                                    <h4 class="font-bold text-sm text-center">Sara Tech</h4>
+                                    <div class="mt-2 text-[8px] font-bold space-y-1">
+                                        <div class="flex justify-between"><span>STR</span><div class="w-12 h-1 bg-gray-200"><div class="w-[60%] h-full bg-blue-500"></div></div></div>
+                                        <div class="flex justify-between"><span>INT</span><div class="w-12 h-1 bg-gray-200"><div class="w-[95%] h-full bg-green-500"></div></div></div>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
-                    </div>
-
-                </div>
-
-                <!-- Mobile Bottom Nav -->
-                <div class="absolute bottom-4 left-4 right-4 bg-white rounded-2xl border-2 border-black shadow-[0_8px_20px_rgba(0,0,0,0.1)] p-3 flex justify-between items-center z-50">
-                     <button class="flex flex-col items-center gap-1 text-hambazi-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
-                    </button>
-                    <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-black">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                    </button>
-                    <div class="relative -top-8">
-                        <div class="w-16 h-16 bg-hambazi-primary rounded-2xl flex items-center justify-center text-white shadow-[4px_4px_0_0_#000] border-2 border-black transform rotate-45 hover:rotate-0 transition-transform cursor-pointer">
-                            <span class="transform -rotate-45 text-2xl font-bold">+</span>
                         </div>
                     </div>
-                    <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-black">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
-                    </button>
-                    <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-black">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    </button>
+
+                    <!-- Bottom Nav -->
+                    <div class="absolute bottom-4 left-4 right-4 bg-white rounded-2xl border-2 border-black shadow-[0_8px_20px_rgba(0,0,0,0.1)] p-3 flex justify-between items-center z-50">
+                        <button class="flex flex-col items-center gap-1 text-hambazi-primary"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></button>
+                        <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-black"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.553-.894L15 4m0 13V4m0 0L9 7" /></svg></button>
+                        <div class="relative -top-8">
+                            <div class="w-16 h-16 bg-hambazi-primary rounded-2xl flex items-center justify-center text-white shadow-[4px_4px_0_0_#000] border-2 border-black transform rotate-45 hover:rotate-0 transition-transform cursor-pointer"><span class="transform -rotate-45 text-2xl font-bold">+</span></div>
+                        </div>
+                        <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-black"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></button>
+                        <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-black"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></button>
+                    </div>
                 </div>
             </div>
-            
-            <p class="mt-4 font-mono text-xs text-gray-400">Interactive Preview</p>
-        </div>
 
-    </main>
+        </div> <!-- End of Split Demo -->
+
+        <!-- DESIGN SYSTEM / STYLE GUIDE SECTION -->
+        <section class="border-t-4 border-black pt-20 mt-32">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="text-4xl font-black font-game text-[#1a1a1a]">DESIGN PATTERNS & TOKENS</h2>
+                <div class="h-1 bg-black flex-1"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- 1. Color Palette -->
+                <div class="space-y-6">
+                    <h3 class="font-bold font-game text-xl">COLOR PALETTE</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl bg-hambazi-primary border-2 border-black shadow-retro"></div>
+                            <div>
+                                <p class="font-bold text-sm">Action Primary</p>
+                                <p class="text-xs font-mono text-gray-500">#A9004E</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl bg-hambazi-surface border-2 border-black shadow-retro"></div>
+                            <div>
+                                <p class="font-bold text-sm">Board Surface</p>
+                                <p class="text-xs font-mono text-gray-500">#F2ECE2</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl bg-hambazi-logo border-2 border-black shadow-retro"></div>
+                            <div>
+                                <p class="font-bold text-sm">Brand Logo</p>
+                                <p class="text-xs font-mono text-gray-500">#8B5CF6</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Typography -->
+                <div class="space-y-6">
+                    <h3 class="font-bold font-game text-xl">TYPOGRAPHY</h3>
+                    <div class="space-y-4 p-6 bg-white border-2 border-black rounded-xl shadow-retro">
+                        <div>
+                            <p class="font-game font-black text-4xl">Aa</p>
+                            <p class="text-xs font-mono text-gray-400 mt-1">Space Grotesk (Headings)</p>
+                        </div>
+                        <hr class="border-gray-200">
+                        <div>
+                            <p class="font-bold text-2xl">ابپ ت ث</p>
+                            <p class="text-xs font-mono text-gray-400 mt-1">Vazirmatn (Body)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. UI Components -->
+                <div class="space-y-6">
+                    <h3 class="font-bold font-game text-xl">COMPONENTS</h3>
+                    <div class="space-y-4">
+                        <button class="w-full btn-retro px-6 py-3 rounded-xl font-bold font-game">PRIMARY BUTTON</button>
+                        <button class="w-full bg-white border-2 border-black px-6 py-3 rounded-xl font-bold font-game hover:bg-black hover:text-white transition-colors">SECONDARY BUTTON</button>
+                        <div class="flex gap-2">
+                             <div class="w-12 h-12 bg-white rounded-xl border-2 border-black shadow-retro flex items-center justify-center">🔔</div>
+                             <div class="w-12 h-12 bg-hambazi-primary text-white rounded-xl border-2 border-black shadow-retro flex items-center justify-center">🚀</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Visual Patterns -->
+                <div class="space-y-6">
+                    <h3 class="font-bold font-game text-xl">PATTERNS</h3>
+                    <div class="h-48 w-full border-2 border-black rounded-xl relative overflow-hidden bg-[#F2ECE2]">
+                         <div class="absolute inset-0" style="background-image: radial-gradient(#d1d5db 2px, transparent 2px); background-size: 20px 20px;"></div>
+                         <div class="absolute inset-0 flex items-center justify-center">
+                             <svg class="w-full h-20">
+                                 <path d="M 0 40 Q 50 10 100 40 T 200 40 T 300 40" fill="none" stroke="#A9004E" stroke-width="3" stroke-dasharray="8 8" />
+                             </svg>
+                         </div>
+                         <div class="absolute bottom-2 right-2 bg-white px-2 py-1 border border-black text-[10px] font-mono rounded">DOT GRID + SNAKE PATH</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
 </body>
 </html>
